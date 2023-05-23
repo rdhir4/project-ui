@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
