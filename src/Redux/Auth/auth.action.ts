@@ -45,7 +45,7 @@ export const signIn = (userInput: string, password: string) => async (dispatch: 
   axiosInstance.post('http://localhost:81/signIn', {
     UserInput: userInput,
     Password: password
-  }).then((res) => {
+  }).then((res: any) => {
     console.log(res)
     return dispatch(signInSuccess(res as unknown as ILoginResponse))
   })
