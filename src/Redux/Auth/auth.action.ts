@@ -1,5 +1,6 @@
 import axiosInstance from '../../Axios/axios'
 import { type ILoginResponse } from './auth.model'
+import { type AxiosResponse } from 'axios'
 
 export enum AuthActions {
   SET_AUTH = 'SET_AUTH',
@@ -45,9 +46,8 @@ export const signIn = (userInput: string, password: string) => async (dispatch: 
   axiosInstance.post('http://localhost:81/signIn', {
     UserInput: userInput,
     Password: password
-  }).then((res: any) => {
-    console.log(res)
-    return dispatch(signInSuccess(res as unknown as ILoginResponse))
+  }).then((res: AxiosResponse<ILoginResponse>) => {
+    dispatch(signInSuccess(res.data))
   })
     .catch(() => dispatch(signInFail))
 }
