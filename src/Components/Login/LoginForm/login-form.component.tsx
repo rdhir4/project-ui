@@ -2,7 +2,7 @@ import { useState } from 'react'
 import StyledLoginForm from './login-form.styled'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../../Redux/Auth/auth.action'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -10,10 +10,9 @@ const LoginForm = () => {
   const [userInput, setUserInput] = useState('')
   const [password, setPassword] = useState('')
 
-  const encryptPassword = (password: string) => {
-    const saltRounds = 10 // Determines the complexity of the hashing algorithm
-    const hashedPassword = bcrypt.hashSync(password, saltRounds)
-    return hashedPassword
+  const loginHandler = () => {
+    const hashedPassword = bcrypt.hashSync(password, 10)
+    dispatch(signIn(userInput, hashedPassword) as any)
   }
 
   return (
@@ -43,7 +42,7 @@ const LoginForm = () => {
         <button
           type = "button"
           className="au-signin-btn"
-          onClick={() => dispatch(signIn(userInput, encryptPassword(password)) as any)}
+          onClick={loginHandler}
         >SignIn</button>
       </div>
     </StyledLoginForm>
